@@ -1,0 +1,12 @@
+.navbar{
+    border-bottom: 1px solid var(--accent-darken);
+}
+
+.buscar{
+    background-color: var(--accent);
+    border: none;
+}
+
+.buscar:hover{
+    background-color:var(--accent-darken); ;
+}
