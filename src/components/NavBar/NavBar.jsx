@@ -9,6 +9,7 @@ import React from 'react'
 import CartWidget from '../CartWidget/CartWidget'
 import './navbar.css'
 import { FcShop } from "react-icons/fc";
+
 function NavBar () {
   return (
     <>
