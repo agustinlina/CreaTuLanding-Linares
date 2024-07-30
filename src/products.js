@@ -5,7 +5,7 @@ const products = [
     title: 'Ethiopian Yirgacheffe',
     description: 'Floral and fruity coffee beans from Ethiopia.',
     price: 15.99,
-    category: 'Coffee Beans',
+    category: 'coffee_beans',
     stock: 50
   },
   {
@@ -14,7 +14,7 @@ const products = [
     title: 'Colombian Supremo',
     description: 'Rich and full-bodied coffee beans from Colombia.',
     price: 13.99,
-    category: 'Coffee Beans',
+    category: 'coffee_beans',
     stock: 60
   },
   {
@@ -23,7 +23,7 @@ const products = [
     title: 'Guatemalan Antigua',
     description: 'Smooth and balanced coffee beans from Guatemala.',
     price: 14.99,
-    category: 'Coffee Beans',
+    category: 'coffee_beans',
     stock: 40
   },
   {
@@ -32,7 +32,7 @@ const products = [
     title: 'Brazilian Santos',
     description: 'Nutty and sweet coffee beans from Brazil.',
     price: 12.99,
-    category: 'Coffee Beans',
+    category: 'coffee_beans',
     stock: 70
   },
   {
@@ -41,7 +41,7 @@ const products = [
     title: 'Jasmine Green Tea',
     description: 'Fragrant and delicate green tea leaves with jasmine.',
     price: 9.99,
-    category: 'Tea Leaves',
+    category: 'tea_leaves',
     stock: 80
   },
   {
@@ -50,7 +50,7 @@ const products = [
     title: 'Earl Grey',
     description: 'Classic black tea leaves with bergamot flavor.',
     price: 8.99,
-    category: 'Tea Leaves',
+    category: 'tea_leaves',
     stock: 65
   },
   {
@@ -59,7 +59,7 @@ const products = [
     title: 'Chamomile Tea',
     description: 'Calming and soothing herbal tea leaves.',
     price: 7.99,
-    category: 'Tea Leaves',
+    category: 'tea_leaves',
     stock: 90
   },
   {
@@ -68,7 +68,7 @@ const products = [
     title: 'Matcha Green Tea',
     description: 'High-quality powdered green tea from Japan.',
     price: 11.99,
-    category: 'Tea Leaves',
+    category: 'tea_leaves',
     stock: 50
   },
   {
@@ -77,7 +77,7 @@ const products = [
     title: 'Croissant',
     description: 'Flaky and buttery French pastry.',
     price: 2.99,
-    category: 'Pastries',
+    category: 'pastries',
     stock: 30
   },
   {
@@ -86,7 +86,7 @@ const products = [
     title: 'Blueberry Muffin',
     description: 'Moist and delicious muffin with fresh blueberries.',
     price: 3.49,
-    category: 'Pastries',
+    category: 'pastries',
     stock: 25
   },
   {
@@ -95,7 +95,7 @@ const products = [
     title: 'Chocolate Chip Cookie',
     description: 'Classic cookie with rich chocolate chips.',
     price: 1.99,
-    category: 'Pastries',
+    category: 'pastries',
     stock: 40
   },
   {
@@ -104,7 +104,7 @@ const products = [
     title: 'Cinnamon Roll',
     description: 'Soft and sweet roll with cinnamon filling.',
     price: 3.99,
-    category: 'Pastries',
+    category: 'pastries',
     stock: 20
   }
 ]
@@ -126,10 +126,22 @@ export const getOneProduct = id => {
   })
 }
 
-export const getProductByCategory = cat =>{
+export const getProductByCategory = cat => {
   return new Promise((resolve, reject) => {
     setTimeout(() => {
-      resolve(products.find(e => e.category === cat))
+      resolve(products.filter(e => e.category === cat))
+    }, 1000)
+  })
+}
+
+export const getProductCategory = () => {
+  return new Promise((resolve, reject) => {
+    setTimeout(() => {
+      // Usar Set para obtener categorías únicas
+      const uniqueCategories = [
+        ...new Set(products.map(product => product.category))
+      ]
+      resolve(uniqueCategories)
     }, 1000)
   })
 }

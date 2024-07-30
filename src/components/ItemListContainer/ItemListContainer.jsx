@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react'
-import { getProducts } from '../../products'
+import { getProducts, getProductByCategory } from '../../products'
 import ItemList from '../ItemList/ItemList'
 import './ItemListContainer.css'
 import { useParams } from 'react-router-dom'
@@ -10,8 +10,8 @@ const ItemListContainer = () => {
   const { cat } = useParams()
   useEffect(() => {
     if (cat) {
-      getProducts()
-        .then(data => setProductos(data.filter(e => e.category === cat)))
+      getProductByCategory(cat)
+        .then(data => setProductos(data))
         .catch(err => {
           setError(err)
           console.log(err)

@@ -5,13 +5,20 @@ import Nav from 'react-bootstrap/Nav'
 import Navbar from 'react-bootstrap/Navbar'
 import NavDropdown from 'react-bootstrap/NavDropdown'
 import Offcanvas from 'react-bootstrap/Offcanvas'
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import CartWidget from '../CartWidget/CartWidget'
 import './navbar.css'
 import { FcShop } from 'react-icons/fc'
 import { Link } from 'react-router-dom'
+import { getProductCategory } from '../../products'
 
 function NavBar () {
+  const [categories, setCategory] = useState([])
+
+  useEffect(() => {
+    getProductCategory().then(res => setCategory(res))
+  }, [])
+
   return (
     <>
       {['sm'].map(expand => (
@@ -43,28 +50,15 @@ function NavBar () {
               </Offcanvas.Header>
               <Offcanvas.Body>
                 <Nav className='justify-content-end flex-grow-1 pe-3'>
-                  <Link to='CreaTuLanding-Linares/category/Pastries'>
-                    Pastries
-                  </Link>
-
-                  <Nav.Link href='#action2' className='text-light'>
-                    Nosotros
-                  </Nav.Link>
-                  <NavDropdown
-                    title='Productos'
-                    id={`offcanvasNavbarDropdown-expand-${expand}`}
-                  >
-                    <NavDropdown.Item href='#action3'>
-                      Productos
-                    </NavDropdown.Item>
-                    <NavDropdown.Item href='#action4'>
-                      Productos
-                    </NavDropdown.Item>
-                    <NavDropdown.Divider />
-                    <NavDropdown.Item href='#action5'>
-                      Productos
-                    </NavDropdown.Item>
-                  </NavDropdown>
+                  {categories.map(category => (
+                    <Link
+                      key={category}
+                      to={`CreaTuLanding-Linares/category/${category}`}
+                      className='nav-link text-white'
+                    >
+                      {category.replace('_', ' ').toUpperCase()}
+                    </Link>
+                  ))}
                 </Nav>
                 <Form className='d-flex'>
                   <Form.Control
@@ -73,7 +67,6 @@ function NavBar () {
                     className='me-2'
                     aria-label='Search'
                   />
-
                   <Button className='buscar'>Buscar</Button>
                 </Form>
               </Offcanvas.Body>
