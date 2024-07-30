@@ -10,3 +10,7 @@
 .buscar:hover{
     background-color:var(--accent-darken); ;
 }
+
+.dropdown-toggle{
+    color: white;
+}

@@ -8,7 +8,8 @@ import Offcanvas from 'react-bootstrap/Offcanvas'
 import React from 'react'
 import CartWidget from '../CartWidget/CartWidget'
 import './navbar.css'
-import { FcShop } from "react-icons/fc";
+import { FcShop } from 'react-icons/fc'
+import { Link } from 'react-router-dom'
 
 function NavBar () {
   return (
@@ -20,11 +21,17 @@ function NavBar () {
           className='mb-3 navbar'
           data-bs-theme='dark'
         >
-          <Container >
-          <Navbar.Toggle aria-controls={`offcanvasNavbar-expand-${expand}`} />
-            <Navbar.Brand href='#'><FcShop/> Willy's Store</Navbar.Brand>
-            
-            <Navbar.Offcanvas fluid data-bs-theme='dark'
+          <Container>
+            <Navbar.Toggle aria-controls={`offcanvasNavbar-expand-${expand}`} />
+            <Navbar.Brand href='#'>
+              <Link to='CreaTuLanding-Linares/'>
+                <FcShop /> Willy's Coffee Shop
+              </Link>
+            </Navbar.Brand>
+
+            <Navbar.Offcanvas
+              fluid
+              data-bs-theme='dark'
               id={`offcanvasNavbar-expand-${expand}`}
               aria-labelledby={`offcanvasNavbarLabel-expand-${expand}`}
               placement='end'
@@ -34,10 +41,15 @@ function NavBar () {
                   Logo
                 </Offcanvas.Title>
               </Offcanvas.Header>
-              <Offcanvas.Body > 
+              <Offcanvas.Body>
                 <Nav className='justify-content-end flex-grow-1 pe-3'>
-                  <Nav.Link href='#action1' className='text-light'>Inicio</Nav.Link>
-                  <Nav.Link href='#action2' className='text-light'>Nosotros</Nav.Link>
+                  <Link to='CreaTuLanding-Linares/category/Pastries'>
+                    Pastries
+                  </Link>
+
+                  <Nav.Link href='#action2' className='text-light'>
+                    Nosotros
+                  </Nav.Link>
                   <NavDropdown
                     title='Productos'
                     id={`offcanvasNavbarDropdown-expand-${expand}`}
