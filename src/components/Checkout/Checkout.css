@@ -1,0 +1,34 @@
+.checkout_btn{
+  background-color: var(--accent);
+  border: none;
+  color: white;
+  font-size: 18px;
+  font-weight: 600;
+  padding: 16px;
+  margin-top: 24px;
+  width: 100%;
+}
+
+.checkout_input{
+  background-color: var(--secondary);
+  color: white;
+  font-size: 18px;
+  border-radius: 3px;
+  outline: 2.5px solid rgba(255, 0, 0, 0);
+  border: none;
+  padding: 8px 6px;
+  &:focus{
+    transition: 300ms;
+    outline: 2.5px solid var(--accent);
+  }
+  &::placeholder{
+    color: rgba(255, 255, 255, 0.583);
+  }
+}
+
+.checkout_form_box{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+}
