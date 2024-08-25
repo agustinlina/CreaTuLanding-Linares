@@ -97,7 +97,7 @@ function NavBar () {
                       <NavDropdown.Item>
                         <Link
                           key={index} // Usamos index como key ya que category es un string único
-                          to={`CreaTuLanding-Linares/category/${category}`}
+                          to={`/category/${category}`}
                           className='nav-link text-white'
                         >
                           {formatCategory(category)}
