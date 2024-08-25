@@ -1,14 +1,21 @@
-import React from 'react'
+import React, { useContext } from 'react'
+import { CiShoppingCart, CiBellOn } from 'react-icons/ci'
+import { FaBell } from 'react-icons/fa'
 import { TiShoppingCart } from 'react-icons/ti'
-import { CgBell } from "react-icons/cg";
+import { CartContext } from '../CartContext/cartContext'
+import { Link } from 'react-router-dom'
 const CartWidget = () => {
+  const { cart, itemQuantity } = useContext(CartContext)
+
+  console.log('CARRITO', cart)
+
   return (
-    <div className='d-flex align-items-center mx-2'>
-      <span>0</span>
-      <div className='d-flex'>
-        <TiShoppingCart style={{ fontSize: '24px' }} />
-        <CgBell style={{ fontSize: '24px' }}/>
-      </div>
+    <div className='d-flex align-items-center gap-3 widget fs-2 fw-bold'>
+      <Link to='/cart'>
+        <TiShoppingCart />
+      </Link>
+      <span>{itemQuantity()}</span>
+      <FaBell />
     </div>
   )
 }

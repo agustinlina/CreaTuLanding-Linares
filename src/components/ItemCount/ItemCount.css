@@ -1,0 +1,13 @@
+.cart_countbtn{
+    background-color: var(--accent);
+    border: none;
+    color:white;
+    font-weight: 600;
+    font-size: 24px;
+    border-radius: 6px;
+    min-width: 40px;
+    &:hover{
+        background-color: var(--accent-darken);
+        transition: background-color 300ms;
+    }
+}

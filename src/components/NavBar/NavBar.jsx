@@ -3,21 +3,44 @@ import Container from 'react-bootstrap/Container'
 import Form from 'react-bootstrap/Form'
 import Nav from 'react-bootstrap/Nav'
 import Navbar from 'react-bootstrap/Navbar'
-import NavDropdown from 'react-bootstrap/NavDropdown'
 import Offcanvas from 'react-bootstrap/Offcanvas'
+import NavDropdown from 'react-bootstrap/NavDropdown'
 import React, { useEffect, useState } from 'react'
 import CartWidget from '../CartWidget/CartWidget'
 import './navbar.css'
 import { FcShop } from 'react-icons/fc'
 import { Link } from 'react-router-dom'
-import { getProductCategory } from '../../products'
+import { db } from '../services/firebaseConfig'
+import { collection, getDocs } from 'firebase/firestore'
 
 function NavBar () {
-  const [categories, setCategory] = useState([])
+  const [categories, setCategories] = useState([])
 
   useEffect(() => {
-    getProductCategory().then(res => setCategory(res))
+    const fetchCategories = async () => {
+      try {
+        const querySnapshot = await getDocs(collection(db, 'products'))
+
+        // Obtener categorías únicas
+        const categoriesData = [
+          ...new Set(querySnapshot.docs.map(doc => doc.data().category))
+        ]
+
+        setCategories(categoriesData)
+      } catch (error) {
+        console.error('Error fetching categories: ', error)
+      }
+    }
+
+    fetchCategories()
   }, [])
+
+  const formatCategory = category => {
+    return category
+      .toLowerCase() // Convertir a minúsculas
+      .replace(/_/g, ' ') // Reemplazar guiones bajos por espacios
+      .replace(/^\w/, c => c.toUpperCase()) // Capitalizar la primera letra
+  }
 
   return (
     <>
@@ -28,11 +51,15 @@ function NavBar () {
           className='mb-3 navbar'
           data-bs-theme='dark'
         >
-          <Container>
+          <Container className='gap-5'>
             <Navbar.Toggle aria-controls={`offcanvasNavbar-expand-${expand}`} />
-            <Navbar.Brand href='#'>
-              <Link to='CreaTuLanding-Linares/'>
-                <FcShop /> Willy's Coffee Shop
+            <Navbar.Brand>
+              <Link to='/'>
+                <img
+                  className='logo'
+                  src='https://res.cloudinary.com/devemnrvh/image/upload/v1724303281/Williams_s_Cofee_Shop_peaan7.svg'
+                  alt='logo'
+                />
               </Link>
             </Navbar.Brand>
 
@@ -43,32 +70,42 @@ function NavBar () {
               aria-labelledby={`offcanvasNavbarLabel-expand-${expand}`}
               placement='end'
             >
-              <Offcanvas.Header closeButton>
-                <Offcanvas.Title id={`offcanvasNavbarLabel-expand-${expand}`}>
-                  Logo
+              <Offcanvas.Header closeButton className='offcanvas-body_color'>
+                <Offcanvas.Title className='offcanvas-logo' id={`offcanvasNavbarLabel-expand-${expand}`}>
+                  <Link to='/'><img
+                    src='https://res.cloudinary.com/devemnrvh/image/upload/v1724303281/Williams_s_Cofee_Shop_peaan7.svg'
+                    alt=''
+                  /></Link>
                 </Offcanvas.Title>
               </Offcanvas.Header>
-              <Offcanvas.Body>
-                <Nav className='justify-content-end flex-grow-1 pe-3'>
-                  {categories.map(category => (
-                    <Link
-                      key={category}
-                      to={`CreaTuLanding-Linares/category/${category}`}
-                      className='nav-link text-white'
-                    >
-                      {category.replace('_', ' ').toUpperCase()}
-                    </Link>
-                  ))}
-                </Nav>
-                <Form className='d-flex'>
-                  <Form.Control
-                    type='search'
-                    placeholder='Search'
-                    className='me-2'
-                    aria-label='Search'
-                  />
-                  <Button className='buscar'>Buscar</Button>
-                </Form>
+              <Offcanvas.Body className='offcanvas-body_color d-flex flex-sm-row flex-column gap-4'>
+                <Link className='navbar-text' to='/'>
+                  <Nav.Link
+                    className='navbar-text'
+                    href='/'
+                  >
+                    Inicio
+                  </Nav.Link>
+                </Link>
+                <Nav.Link className='navbar-text justify-content-end flex-grow-1 pe-3'>
+                  <NavDropdown
+                    className='navbar-text navbar__dropdown--menu'
+                    title='Productos'
+                    id='navbarScrollingDropdown'
+                  >
+                    {categories.map((category, index) => (
+                      <NavDropdown.Item>
+                        <Link
+                          key={index} // Usamos index como key ya que category es un string único
+                          to={`CreaTuLanding-Linares/category/${category}`}
+                          className='nav-link text-white'
+                        >
+                          {formatCategory(category)}
+                        </Link>
+                      </NavDropdown.Item>
+                    ))}
+                  </NavDropdown>
+                </Nav.Link>
               </Offcanvas.Body>
             </Navbar.Offcanvas>
             <CartWidget />

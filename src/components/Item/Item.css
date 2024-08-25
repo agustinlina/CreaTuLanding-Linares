@@ -1,4 +1,16 @@
 .product__card--button{
-    width: 100%!important;
-    
+   background-color: var(--secondary);
+   border: none;
+    &:hover{
+        background-color: var(--secondary--darken);
+    }
+   
+}
+
+.product__card--button:focus{
+    background-color: var(--secondary--darken);
+}
+
+.card{
+    background-color: var(--primary);
 }

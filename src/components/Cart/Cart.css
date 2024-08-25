@@ -1,0 +1,10 @@
+.btn_emptycart{
+    background-color: var(--accent);
+    padding: 16px;
+    font-size: 18px;
+    border-radius: 6px;
+    &:hover{
+        transition: background-color 300ms;
+        background-color: var(--accent-darken);
+    }
+}

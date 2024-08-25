@@ -1,16 +1,43 @@
-.navbar{
-    border-bottom: 1px solid var(--accent-darken);
+a {
+  text-decoration: none;
+  color: white;
+}
+.navbar-text {
+  text-decoration: none;
+  color: white;
+  font-weight: 600;
+  font-size: 22px;
 }
 
-.buscar{
-    background-color: var(--accent);
-    border: none;
+.navbar-text > a:hover {
+  color: var(--primary) !important;
 }
 
-.buscar:hover{
-    background-color:var(--accent-darken); ;
+.logo {
+  width: 120px;
 }
 
-.dropdown-toggle{
-    color: white;
+.navbar {
+  background-color: var(--accent-darken);
+}
+
+.buscar:hover {
+  background-color: var(--accent-darken);
+}
+
+.dropdown-toggle {
+  color: white;
+}
+
+.dropdown-menu {
+  background-color: var(--background);
+}
+.offcanvas-logo img {
+  width: 120px;
+}
+
+@media (max-width: 575px) {
+  .offcanvas-body_color {
+    background-color: var(--background);
+  }
 }
